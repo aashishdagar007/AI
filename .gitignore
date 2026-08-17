@@ -1,2 +1,7 @@
-
-outputs/live_hsi_cube.json
+__pycache__/
+*.pyc
+.venv/
+venv/
+outputs/
+*.npy
+*.npz

@@ -85,7 +85,7 @@ wavelength_range=(400, 3000))
             os.remove(f)
 
     print('Test 1 PASSED - Precise image processing')
-    return True
+    # Test passes (assertions used)
 
 
 def test_synthetic_video_precise():
@@ -151,7 +151,7 @@ wavelength_range=(400, 3000))
             os.remove(f)
 
     print('Test 2 PASSED - Precise video processing')
-    return True
+    # Test passes (assertions used)
 
 
 def test_spectral_calibration():
@@ -179,7 +179,7 @@ def test_spectral_calibration():
     print(f'Edge pixel profile - max: {profile_edge["max_reflectance"]:.4f}')
 
     print('Test 3 PASSED - Spectral calibration')
-    return True
+    # Test passes (assertions used)
 
 
 if __name__ == '__main__':

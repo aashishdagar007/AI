@@ -2,7 +2,12 @@
 Handles visualization, export, and analysis of processed hyperspectral data
 with precise metadata and calibration."""
 import numpy as np
-import cv2
+try:
+    import cv2
+except ImportError as exc:
+    raise ImportError(
+        "OpenCV (cv2) is required. Install it with `pip install -r requirements.txt`."
+    ) from exc
 import os
 import json
 from datetime import datetime

@@ -23,7 +23,12 @@ Outputs (written to outputs/ folder):
 import sys
 import os
 import numpy as np
-import cv2
+try:
+    import cv2
+except ImportError as exc:
+    raise ImportError(
+        "OpenCV (cv2) is required. Install it with `pip install -r requirements.txt`."
+    ) from exc
 from pathlib import Path
 
 # Project modules

@@ -1,11 +1,16 @@
-import sys
+# Removed redundant import of sys
 import sys as _sys
 (_sys.path.insert(0, _sys.path[0]) if not any(_sys.path[0].startswith(d) for d in ['D:\\AASHISH\\Projects\\AI', '']) else None)
 
 import tempfile
 import os
 from flask import Flask, render_template, request, Response
-import cv2
+try:
+    import cv2
+except ImportError as exc:
+    raise ImportError(
+        "OpenCV (cv2) is required. Install it with `pip install -r requirements.txt`."
+    ) from exc
 import numpy as np
 from input_handler import InputHandler
 from processing_pipeline import HyperspectralProcessor

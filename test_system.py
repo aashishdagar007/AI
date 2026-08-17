@@ -48,7 +48,7 @@ def test_synthetic_image():
         if os.path.exists(f):
             os.remove(f)
 
-    return True
+    # Test passes (assertions used)
 
 
 def test_synthetic_video():
@@ -88,7 +88,7 @@ def test_synthetic_video():
         if os.path.exists(f):
             os.remove(f)
 
-    return True
+    # Test passes (assertions used)
 
 
 def test_frame_comparison():
@@ -110,7 +110,7 @@ def test_frame_comparison():
         # Just verify the output directory exists
         pass
 
-    return True
+    # Test passes (assertions used)
 
 
 if __name__ == '__main__':
