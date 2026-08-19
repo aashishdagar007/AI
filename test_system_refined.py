@@ -3,7 +3,6 @@ Tests the precise output with spectral calibration and metadata."""
 import sys
 import os
 import numpy as np
-import cv2
 
 sys.path.insert(0, '.')
 

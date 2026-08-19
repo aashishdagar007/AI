@@ -10,6 +10,8 @@ Implements precise hyperspectral imaging techniques based on research literature
 """
 
 import numpy as np
+import os
+os.makedirs('outputs', exist_ok=True)
 from input_handler import InputHandler
 
 

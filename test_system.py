@@ -2,7 +2,6 @@
 import sys
 import os
 import numpy as np
-import cv2
 
 sys.path.insert(0, '.')
 
@@ -12,11 +11,16 @@ from output_handler import OutputHandler
 
 
 def test_synthetic_image():
+    # Lazy import cv2 for image writing
+    try:
+        import cv2 as _cv2
+    except ImportError as _exc:
+        raise ImportError("OpenCV (cv2) is required for test image generation. Install it with `pip install -r requirements.txt`.") from _exc
     """Test with synthetic image."""
     print('=== Test 1: Synthetic Image Processing ===')
     # Create a synthetic RGB image
     synthetic_img = np.random.rand(100, 100, 3).astype(np.float32)
-    cv2.imwrite('test_synthetic.jpg', (synthetic_img * 255).astype(np.uint8))
+    _cv2.imwrite('test_synthetic.jpg', (synthetic_img * 255).astype(np.uint8))
 
     # Create input handler
     input_h = InputHandler('test_synthetic.jpg')
@@ -27,6 +31,7 @@ def test_synthetic_image():
     # Process with hyperspectral pipeline
     processor = HyperspectralProcessor(n_bands=31, method='image')
     result = processor.process(input_h)
+    hsi = result['processed_hsi']
     print(f'Output HSI shape: {result["processed_hsi"].shape}')
     print(f'Bands: {result["n_bands"]}')
 
@@ -48,7 +53,10 @@ def test_synthetic_image():
         if os.path.exists(f):
             os.remove(f)
 
-    # Test passes (assertions used)
+    # Verify HSI cube shape and file existence
+    assert hsi.shape == (100, 100, 31), f'Expected shape (100,100,31), got {hsi.shape}'
+    assert os.path.exists(save_path), f'Save path {save_path} does not exist'
+    assert profile['max_reflectance'] >= 0.0, 'max_reflectance should be non-negative'
 
 
 def test_synthetic_video():
@@ -56,9 +64,13 @@ def test_synthetic_video():
     print()
     print('=== Test 2: Synthetic Video Processing ===')
     # Create a synthetic video
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    try:
+        import cv2 as _cv2
+    except ImportError as _exc:
+        raise ImportError("OpenCV (cv2) is required for video writing. Install it with `pip install -r requirements.txt`.") from _exc
+    fourcc = _cv2.VideoWriter_fourcc(*'mp4v')
     video_path = 'test_synthetic_video.mp4'
-    out = cv2.VideoWriter(video_path, fourcc, 30.0, (100, 100))
+    out = _cv2.VideoWriter(video_path, fourcc, 30.0, (100, 100))
 
     # Write 5 frames
     for i in range(5):
@@ -75,11 +87,15 @@ def test_synthetic_video():
     processor_video = HyperspectralProcessor(n_bands=31, method='video')
     result_video = processor_video.process(input_h_video)
     print(f'Video output HSI shape: {result_video["processed_hsi"].shape}')
+    video_hsi = result_video['processed_hsi']
 
     # Save video output HSI cube
     output = OutputHandler()
     save_path_v = output.save_hsi_cube(result_video['processed_hsi'], 'test_video_hsi.npy')
     print(f'Video HSI cube saved: {save_path_v}')
+    # Verify video HSI cube shape and file existence
+    assert video_hsi.shape == (100, 100, 31), f'Expected shape (100,100,31), got {video_hsi.shape}'
+    assert os.path.exists(save_path_v), f'Save path {save_path_v} does not exist'
 
     # Cleanup
     if os.path.exists(video_path):
@@ -103,6 +119,7 @@ def test_frame_comparison():
 
     # Save comparison
     comp_path = output.save_frame_comparison(original, processed[:, :, :3])
+    assert os.path.exists(comp_path), f'Comparison path {comp_path} does not exist'
     print(f'Comparison image saved: {comp_path}')
 
     # Cleanup
