@@ -48,23 +48,37 @@ TermCoder is a powerful, autonomous AI pair programmer running directly in your 
 
 ---
 
-## 🚀 Easy Installation on Windows
+## 🚀 Installation & Windows Setup
 
-### Option 1: One-Click Batch Installer
-Simply double-click `install.bat`.
+### Option 1: Standalone Windows Installer (Inno Setup)
+You can compile and run a native Windows installer (`TermCoder-Setup.exe`) that creates Desktop and Start Menu shortcuts configured to **launch directly inside Windows Terminal (`wt.exe`)** and registers `ai` and `termcoder` globally in your User `PATH`:
 
-### Option 2: PowerShell
-Run the installer script:
+1. Build the installer by double-clicking `build_installer.bat` or running in PowerShell:
+   ```powershell
+   .\build_installer.ps1
+   ```
+2. Run the generated installer:
+   ```text
+   Output\TermCoder-Setup.exe
+   ```
+3. Whenever you modify any code, simply re-run `build_installer.bat` or `.\build_installer.ps1`, then run the updated `TermCoder-Setup.exe` to update your installed version immediately!
+
+### Option 2: Direct Terminal Launch
+- Double-click the **TermCoder** Desktop or Start Menu shortcut to launch directly into **Windows Terminal**.
+- Or run `bin\termcoder-wt.cmd` directly.
+
+### Option 3: Quick Script Install (No Inno Setup required)
+Simply double-click `install.bat` or run:
 ```powershell
 .\install.ps1
 ```
 
-### Option 3: Manual Pip Install
+### Option 4: Developer Editable Pip Install
 ```powershell
 pip install -e .
 ```
 
-Once installed, the global commands `ai` and `termcoder` are available in any terminal!
+Once installed, the global commands `ai` and `termcoder` are available in any terminal window (CMD, PowerShell, Windows Terminal, Git Bash)!
 
 ---
 

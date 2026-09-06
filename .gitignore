@@ -35,6 +35,9 @@ htmlcov/
 .termcoder/
 *.log
 
+# Inno Setup Output
+Output/
+
 # IDE
 .idea/
 .vscode/
