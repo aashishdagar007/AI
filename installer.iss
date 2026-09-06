@@ -47,13 +47,13 @@ Source: "dist\TermCoder\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdir
 
 [Icons]
 ; Desktop and Start Menu shortcuts launch directly in Windows Terminal
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{%USERPROFILE}"; Tasks: desktopicon; Comment: "Launch TermCoder in Windows Terminal"
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{%USERPROFILE}"; Comment: "Launch TermCoder in Windows Terminal"
 Name: "{autoprograms}\{#MyAppName}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{%USERPROFILE}"; Comment: "Launch TermCoder in Windows Terminal"
 Name: "{autoprograms}\{#MyAppName}\Uninstall {#MyAppName}"; Filename: "{uninstallexe}"
 
 [Run]
 ; Option to launch directly into Windows Terminal after install
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: shellexec nowait postinstall skipifsilent
 
 [Code]
 const

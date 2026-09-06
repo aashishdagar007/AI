@@ -1,5 +1,6 @@
 @echo off
 setlocal
+title TermCoder AI
 
 REM 1. Check for bundled virtual environment first
 if exist "%~dp0..\venv\Scripts\python.exe" (
@@ -28,9 +29,13 @@ if %ERRORLEVEL% equ 0 (
 )
 
 if "%PY_EXE%"=="" (
-    echo [TermCoder ERROR] Python 3.10+ was not found on your system.
+    echo.
+    echo =======================================================
+    echo [TermCoder ERROR] Python 3.10+ was not found in PATH.
     echo Please install Python from https://www.python.org/downloads/
-    echo and ensure "Add Python to PATH" is checked during installation.
+    echo and check "Add Python to PATH" during installation.
+    echo =======================================================
+    echo.
     pause
     goto :EOF
 )

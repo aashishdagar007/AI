@@ -107,6 +107,10 @@ if ($LASTEXITCODE -ne 0) {
 # 5. Summary
 $setupExe = Join-Path $outputDir "TermCoder-Setup.exe"
 if (Test-Path $setupExe) {
+    # Also copy to project root for instant access
+    $rootSetupExe = Join-Path $ProjectRoot "TermCoder-Setup.exe"
+    Copy-Item -Path $setupExe -Destination $rootSetupExe -Force
+
     $fileInfo = Get-Item $setupExe
     $sizeMB = [math]::Round($fileInfo.Length / 1MB, 2)
     Write-Host ""
@@ -115,13 +119,15 @@ if (Test-Path $setupExe) {
     Write-Host "==================================================" -ForegroundColor Green
     Write-Host ""
     Write-Host "Installer Executable:" -ForegroundColor Cyan
+    Write-Host "  $rootSetupExe ($sizeMB MB)" -ForegroundColor White
     Write-Host "  $setupExe ($sizeMB MB)" -ForegroundColor White
     Write-Host ""
     Write-Host "How to use:" -ForegroundColor Cyan
-    Write-Host "  1. Run 'TermCoder-Setup.exe' to install or update TermCoder." -ForegroundColor White
+    Write-Host "  1. Double-click 'TermCoder-Setup.exe' in the project folder to install/update." -ForegroundColor White
     Write-Host "  2. Launch via Desktop / Start Menu shortcut (opens directly in Windows Terminal)." -ForegroundColor White
-    Write-Host "  3. Or run 'ai' or 'termcoder' from any existing terminal." -ForegroundColor White
-    Write-Host "  4. Whenever you change code, re-run .\build_installer.ps1 to generate a new update!" -ForegroundColor White
+    Write-Host "  3. Or run 'ai' or 'termcoder' in any existing terminal." -ForegroundColor White
+    Write-Host "  4. Or double-click 'TermCoder.bat' right here to run directly!" -ForegroundColor White
+    Write-Host "  5. Whenever you change code, re-run .\build_installer.ps1 (or double-click build_installer.bat) to update!" -ForegroundColor White
     Write-Host ""
 } else {
     Write-Host "[ERROR] Output executable was not found at $setupExe" -ForegroundColor Red

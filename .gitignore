@@ -37,6 +37,7 @@ htmlcov/
 
 # Inno Setup Output
 Output/
+TermCoder-Setup.exe
 
 # IDE
 .idea/
