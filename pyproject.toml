@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "termcoder"
+version = "0.1.0"
+description = "Terminal AI coding assistant for Windows with codebase awareness, NVIDIA NIM, and agentic workflows."
+authors = [{ name = "Aashish Dagar" }]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "prompt_toolkit>=3.0.40",
+    "rich>=13.0.0",
+    "httpx>=0.27.0",
+    "pyperclip>=1.8.2",
+]
+
+[project.scripts]
+termcoder = "termcoder.cli:main"
+ai = "termcoder.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["termcoder*"]
